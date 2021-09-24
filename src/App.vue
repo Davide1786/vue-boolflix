@@ -1,28 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header @search="controllo"/>
+    <Movies :test="movieSelezionato"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from 'axios'
+import Header from './components/Header.vue'
+import Movies from './components/Movies.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    Movies
+  },
+  data() {
+    return {
+      apiNetflix : 'https://api.themoviedb.org/3/search/movie?api_key=cccfd668f87b751c8d927b2426c90b75&query=',
+      movieSelezionato: []
+    }
+  },
+  methods: {
+    controllo(filtro) {
+      // console.log(filtro);
+        axios
+            .get(this.apiNetflix + filtro)
+            .then(res => {
+                // console.log(res.data.results);
+                this.movieSelezionato = res.data.results;
+            })
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import './style/generals.scss'
 </style>

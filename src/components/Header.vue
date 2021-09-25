@@ -19,9 +19,6 @@ export default {
       ricercaUtente: ''
     }
   }
-  // props: {
-  //   msg: String
-  // }
 }
 </script>
 

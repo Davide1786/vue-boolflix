@@ -1,28 +1,39 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <Header @search="controllo"/>
-    <Movies :test="movieSelezionato"/>
+    <Main :movies="movieSelezionato"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import Header from './components/Header.vue'
-import Movies from './components/Movies.vue'
+import Main from './components/Main.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    Movies
+    Main
   },
   data() {
     return {
       apiNetflix : 'https://api.themoviedb.org/3/search/movie?api_key=cccfd668f87b751c8d927b2426c90b75&query=',
-      movieSelezionato: []
+      movieSelezionato: [],
+      // moviesCompleto: []
     }
   },
+  created() {
+    this.controllo()
+  },
   methods: {
+    // presentazione(){
+    //     axios
+    //         .get(this.apiNetflix + this.moviesCompleto)
+    //         .then(res => {
+    //           this.moviesCompleto = res.data.results;
+    //         })
+    // },
     controllo(filtro) {
       // console.log(filtro);
         axios
@@ -36,6 +47,19 @@ export default {
 }
 </script>
 
+
+
+
 <style lang="scss">
-@import './style/generals.scss'
+@import './style/generals.scss';
+
+.container {
+  background: #181818;
+  height: 100vh;
+  width: 100%;
+  content: "";
+  display: table;
+  clear: both;
+}
+
 </style>

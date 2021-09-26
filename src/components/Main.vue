@@ -1,37 +1,24 @@
 <template>
-  <div class="cards">
-    <div class="card"
-    v-for="(movie, index) in movies"
-    :key="index" :img="movie.patch_"
-    :title="movie.title" :lingua="movie.original_language" >
-      <li>
-        <!-- {{ movie.title }} 
-        {{ movie.original_title }} 
-        {{ movie.original_language }} 
-        {{ movie.vote_count }}  -->
-      </li>
+  <section class="cards">
+    <div v-for="(movie, index) in movies" :key="index" class="card">
+       <LayoutCard :info="movie" />
     </div>
-
-    
-  </div>
+  </section>
 </template>
 
 <script>
-// import LayoutCard from './LayoutCard.vue'
+import LayoutCard from './LayoutCard.vue'
 export default {
   name: 'Main',
-  // components: {
-  //   LayoutCard
-  // },
-  props: ['movies', 'titolo', 'lingua', 'voti', 'img', 'titoloOriginale']
-  // data() {
-  //   return {
-  //     ricercaUtente: ''
-  //   }
-  // }
-  // props: {
-  //   msg: String
-  // }
+  components: {
+    LayoutCard
+  },
+  data(){
+    return {
+      title: 'original_title'
+    }
+  },
+  props: ['movies']
 }
 </script>
 
@@ -48,15 +35,15 @@ li {
   flex-wrap: wrap;
 }
 
-.card {
-  height: 550px;
-  width: 400px;
-  border: 1px solid hotpink;
-  background: cornflowerblue;
-  margin: 60px 60px;
-  text-align: center;
-  padding: 20px;
-  color: white;
-}
+// .card {
+//   height: 550px;
+//   width: 400px;
+//   border: 1px solid hotpink;
+//   background: cornflowerblue;
+//   margin: 60px 60px;
+//   text-align: center;
+//   // padding: 20px;
+//   color: white;
+// }
 
 </style>

@@ -1,7 +1,7 @@
 <template>
   <section class="cards" >
     <div class="card">
-      <img :src="`https://image.tmdb.org/t/p/w300${info.poster_path}`" alt="" class="image">
+      <img :src="`https://image.tmdb.org/t/p/w300/${info.poster_path}`" alt="" class="image">
       <!-- <div class="informazioniGenerali"> -->
           <li class="informazioniGenerali">         
             <p> Titolo: {{ info.title }} </p>
@@ -46,15 +46,7 @@ export default {
       text-align: center;
       color: white;
     }
-
 }
-
-// .informazioniGenerali {
-//   display: none;
-//     li {
-//       list-style: none;
-//     }
-// }
 
 li {
   list-style: none;
@@ -63,7 +55,6 @@ li {
 }
 
 .informazioniGenerali {
-  //  background: olive;
   background: #282828;
    widows: 100%;
    height: 100%;
@@ -77,10 +68,6 @@ li {
 .card:hover .informazioniGenerali {
   display: block;
 }
-
-
-
-
 
 
 </style>

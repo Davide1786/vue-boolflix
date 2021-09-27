@@ -19,30 +19,14 @@ export default {
   data() {
     return {
       apiNetflix : 'https://api.themoviedb.org/3/search/movie?api_key=cccfd668f87b751c8d927b2426c90b75&query=',
-      // apiIniziali : 'https://api.themoviedb.org/3/search/movie?api_key=cccfd668f87b751c8d927b2426c90b75&query=rick',
       movieSelezionato: [],
-      searchText: ''
-      // moviesCompleto: []
+      lingue: []
     }
   },
   // created() {
-  //   this.gerControllo()
-  // },
-  // computed: {
-  //   filteredMovieSelezionato() {
-  //     if (this.searchText === "") {
-  //       return this.apiIniziali;
-  //     }
-  //   }
+  //   this.getControllo()
   // },
   methods: {
-    // presentazione(){
-    //     axios
-    //         .get(this.apiNetflix + this.moviesCompleto)
-    //         .then(res => {
-    //           this.moviesCompleto = res.data.results;
-    //         })
-    // },
     controllo(filtro) {
       // console.log(filtro);
         axios
@@ -51,7 +35,16 @@ export default {
                 // console.log(res.data.results);
                 this.movieSelezionato = res.data.results;
             })
-    }
+    },
+    test(filtro) {
+      // console.log(filtro);
+        axios
+            .get(this.apiNetflix + filtro)
+            .then(res => {
+              // console.log(res.data.original_language);
+              this.lingue = res.data.original_language;
+            })
+    },
   }
 }
 </script>

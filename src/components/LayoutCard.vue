@@ -1,73 +1,104 @@
 <template>
   <section class="cards" >
-    <div class="card">
-      <img :src="`https://image.tmdb.org/t/p/w300/${info.poster_path}`" alt="" class="image">
-      <!-- <div class="informazioniGenerali"> -->
-          <li class="informazioniGenerali">         
-            <p> Titolo: {{ info.title }} </p>
-            <p> Titolo Originale: {{ info.original_title }} </p>
-            <p> Voto: {{ info.vote_count }} </p>
-            <p> Storia: {{ info.overview }} </p> 
-          </li>
-      <!-- </div> -->
+    <div class="card-front">
+        <img v-if="info.poster_path"
+        :src="`https://image.tmdb.org/t/p/w300/${info.poster_path}`" alt="" class="image">
+        <img v-else
+         src="../assets/img/logo.jpg" alt="" class="image">
+          <div class="card-retro">         
+            <h3>Titolo</h3>
+            <p> {{ info.title }} </p>
+            <h3>Titolo Originale</h3>
+            <p> {{ info.original_title }} </p>
+            <h3>Voto</h3>
+            <p> {{ info.vote_average }} </p>
+            <span>Lingua</span>
+            <img v-if="lingue.includes(info.original_language)" 
+            class="iconeNazionali"
+            :src="require(`../assets/img/bandiera-${info.original_language}.png`)"> 
+            <p v-else class="testoLingua">
+              non disponibile
+            </p>
+            <h3>Storia</h3>
+            <p> {{ info.overview }} </p>
+          </div>
     </div>
+
   </section>
 </template>
 
 <script>
+
 export default {
   name: 'LayoutCard',
-  props: ['info']
+  props: ['info'],
+
+  data: function() {
+    return {
+      lingue: [ 'de', 'es', 'it', 'jp', 'us', 'en']
+    }
+  },
+  methods: {
+    getVoto: function() {
+      return Math.ceil(this.info.vote_average)
+    }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
+.card-front {
+  height: 550px;
+  width: 400px;
+  margin: 10px 10px;
+  color: white;
+}
+
+.card-retro {
+   background: #282828;
+   width: 100%;
+   height: 100%;
+   display: none;
+   padding: 30px;
+   text-align: center;
+   text-align: left;
+   overflow: scroll;
+}
 
 .image {
   width: 100%;
   height: 100%;
 }
 
-.cards {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-
-    .card {
-      height: 550px;
-      width: 400px;
-      // border: 1px solid hotpink;
-      // background: red;
-      margin: 10px 10px;
-      // padding: 40px;
-      text-align: center;
-      color: white;
-    }
-}
-
-li {
-  list-style: none;
-  text-align: left;
-  padding: 50px;
-}
-
-.informazioniGenerali {
-  background: #282828;
-   widows: 100%;
-   height: 100%;
-   display: none;
-}
-
-.card:hover img {
+.card-front:hover > img {
   display: none;
 }
 
-.card:hover .informazioniGenerali {
+.card-front:hover .card-retro {
   display: block;
 }
 
+.iconeNazionali {
+  width: 30px;
+  height: 20px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.testoLingua {
+  display: inline;
+}
+
+h3, p {
+  margin: 5px auto;
+}
 
 </style>

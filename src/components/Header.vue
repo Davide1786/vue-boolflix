@@ -6,8 +6,8 @@
       <form>
         <input v-model="ricercaUtente"
                type="text" placeholder="Inserisci il tuo titolo"
-               @keyup.enter="$emit('search', prova())">        
-        <button @click.prevent="$emit('search', prova())">Cerca titolo</button>
+               @keyup.enter="$emit('search', ricercaUtente)">        
+        <button @click.prevent="$emit('search', ricercaUtente)">Cerca titolo</button>
       </form>
   </div>
 </template>
@@ -21,14 +21,7 @@ export default {
     }
   },
   methods: {
-    prova() {
-      if (this.ricercaUtente === "") {
-        this.movieSelezionato
-      }
-      else {
-        return this.ricercaUtente
-      }
-    }
+   
   }
 }
 </script>

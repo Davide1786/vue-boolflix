@@ -18,9 +18,9 @@ export default {
   },
   data() {
     return {
-      apiNetflix : 'https://api.themoviedb.org/3/search/movie?api_key=cccfd668f87b751c8d927b2426c90b75&query=',
+      apiNetflix : 'https://api.themoviedb.org/3/search/',
+      apiFilm: '?api_key=cccfd668f87b751c8d927b2426c90b75&query=',
       movieSelezionato: [],
-      lingue: []
     }
   },
   // created() {
@@ -30,27 +30,21 @@ export default {
     controllo(filtro) {
       // console.log(filtro);
         axios
-            .get(this.apiNetflix + filtro)
+            .get(this.apiNetflix + 'movie' + this.apiFilm + filtro)
+            .then(res => {
+                // console.log(res.data.results);
+                this.movieSelezionato = res.data.results;
+            })
+        axios
+            .get(this.apiNetflix + 'tv' + this.apiFilm + filtro)
             .then(res => {
                 // console.log(res.data.results);
                 this.movieSelezionato = res.data.results;
             })
     },
-    test(filtro) {
-      // console.log(filtro);
-        axios
-            .get(this.apiNetflix + filtro)
-            .then(res => {
-              // console.log(res.data.original_language);
-              this.lingue = res.data.original_language;
-            })
-    },
   }
 }
 </script>
-
-
-
 
 <style lang="scss">
 @import './style/generals.scss';

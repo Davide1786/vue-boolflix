@@ -1,35 +1,39 @@
 <template>
-  <section class="cards">
-    <div class="card-front">
-        <img v-if="info.poster_path"
-        :src="`https://image.tmdb.org/t/p/w300/${info.poster_path}`"
-        alt="" class="image">
-        <img v-else
-         src="../assets/img/logo.png" alt="">
-          <div class="card-retro">         
-            <h3>Titolo</h3>
-            <p> {{ info.title ? info.title : info.name }} </p>
-            <h3>Titolo Originale</h3>
-            <p> {{ info.original_title ? info.original_title : info.original_name }} </p>
-            <h3>Voto</h3>
-            <div class="voto">
-              <i v-for="n in 5" :key="n" class="fa-star"
-              :class="(n <= getVoto()) ? 'fas' : 'far'">   
-              </i>
-            </div>
-            <span>Lingua</span>
-            <img v-if="lingue.includes(info.original_language)" 
-            class="iconeNazionali"
-            :src="require(`../assets/img/bandiera-${info.original_language}.png`)"> 
-            <p v-else class="testoLingua">
-              non disponibile
-            </p>
-            <h3>Storia</h3>
-            <p> {{ info.overview ? info.overview : 'Storia non disponibile' }} </p>
-          </div>
-    </div>
 
-  </section>
+<div class="flip-card">
+  <div class="flip-card-inner">
+    <div class="flip-card-front">
+      <img v-if="info.poster_path"
+          :src="`https://image.tmdb.org/t/p/w300/${info.poster_path}`"
+          alt="" class="image">
+          <img v-else
+          src="../assets/img/logo.png" alt="">
+    </div>
+    <div class="flip-card-back">
+      <h3>Titolo</h3>
+              <p> {{ info.title ? info.title : info.name }} </p>
+              <h3>Titolo Originale</h3>
+              <p> {{ info.original_title ? info.original_title : info.original_name }} </p>
+              <h3>Voto</h3>
+              <div class="voto">
+                <i v-for="n in 5" :key="n" class="fa-star"
+                :class="(n <= getVoto()) ? 'fas' : 'far'">   
+                </i>
+              </div>
+              <span>Lingua</span>
+              <img v-if="lingue.includes(info.original_language)" 
+              class="iconeNazionali"
+              :src="require(`../assets/img/bandiera-${info.original_language}.png`)"> 
+              <p v-else class="testoLingua">
+                non disponibile
+              </p>
+              <h3>Storia</h3>
+              <p> {{ info.overview ? info.overview : 'Storia non disponibile' }} </p>
+    </div>
+  </div>
+</div>
+  
+
 </template>
 
 <script>
@@ -54,44 +58,56 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-.cards {
+.flip-card {
+  background-color: transparent;
+  height: 550px;
+  width: 400px;
+  perspective: 1000px; 
+  margin: 10px 10px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.card-front {
-  height: 550px;
-  width: 400px;
-  margin: 10px 10px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
 }
 
-.card-retro {
-   background: #282828;
-   width: 100%;
-   height: 100%;
-   display: none;
-   padding: 30px;
-   text-align: center;
-   text-align: left;
-   overflow: scroll;
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  // -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flip-card-back {
+  color: white;
+  padding: 30px;
+  transform: rotateY(180deg);
+  overflow: scroll;
+  background: #282828;
 }
 
 .image {
   width: 100%;
   height: 100%;
-}
-
-.card-front:hover > img {
-  display: none;
-}
-
-.card-front:hover .card-retro {
-  display: block;
+  
 }
 
 .iconeNazionali {

@@ -31,15 +31,5 @@ export default {
   flex-wrap: wrap;
 }
 
-// .card {
-//   height: 550px;
-//   width: 400px;
-//   border: 1px solid hotpink;
-//   background: cornflowerblue;
-//   margin: 60px 60px;
-//   text-align: center;
-//   // padding: 20px;
-//   color: white;
-// }
 
 </style>

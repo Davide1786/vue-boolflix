@@ -1,12 +1,12 @@
 <template>
   <div class="header">
     <div class="logo">
-      <h1 class="logotipo">BOOLFLIX</h1>
+      <img src="../assets/img/logo.png" class="logotipo" alt="">
     </div>
       <form>
         <input v-model="ricercaUtente"
                type="text" placeholder="Inserisci il tuo titolo"
-               @keyup.enter="$emit('search', ricercaUtente)">        
+                @keyup="$emit('search', ricercaUtente)">        
         <button @click.prevent="$emit('search', ricercaUtente)">Cerca titolo</button>
       </form>
   </div>
@@ -20,9 +20,6 @@ export default {
       ricercaUtente: ''
     }
   },
-  methods: {
-   
-  }
 }
 </script>
 
@@ -43,9 +40,9 @@ export default {
       height: 100%;
       display: flex;
       align-items: center;
-      
-        .logotipo {
-          color: red;
+
+        img {
+          width: 20%;
         }
     }
   input {
@@ -59,10 +56,6 @@ export default {
     padding: 10px;
     border-radius: 3px;
     border: none;
-
-    // border-radius: 5px;
-    
-
   }
 
 }

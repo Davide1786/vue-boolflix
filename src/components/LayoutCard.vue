@@ -1,17 +1,22 @@
 <template>
-  <section class="cards" >
+  <section class="cards">
     <div class="card-front">
         <img v-if="info.poster_path"
-        :src="`https://image.tmdb.org/t/p/w300/${info.poster_path}`" alt="" class="image">
+        :src="`https://image.tmdb.org/t/p/w300/${info.poster_path}`"
+        alt="" class="image">
         <img v-else
-         src="../assets/img/logo.jpg" alt="" class="image">
+         src="../assets/img/logo.png" alt="">
           <div class="card-retro">         
             <h3>Titolo</h3>
-            <p> {{ info.title }} </p>
+            <p> {{ info.title ? info.title : info.name }} </p>
             <h3>Titolo Originale</h3>
-            <p> {{ info.original_title }} </p>
+            <p> {{ info.original_title ? info.original_title : info.original_name }} </p>
             <h3>Voto</h3>
-            <p> {{ info.vote_average }} </p>
+            <div class="voto">
+              <i v-for="n in 5" :key="n" class="fa-star"
+              :class="(n <= getVoto()) ? 'fas' : 'far'">   
+              </i>
+            </div>
             <span>Lingua</span>
             <img v-if="lingue.includes(info.original_language)" 
             class="iconeNazionali"
@@ -20,7 +25,7 @@
               non disponibile
             </p>
             <h3>Storia</h3>
-            <p> {{ info.overview }} </p>
+            <p> {{ info.overview ? info.overview : 'Storia non disponibile' }} </p>
           </div>
     </div>
 
@@ -40,7 +45,7 @@ export default {
   },
   methods: {
     getVoto: function() {
-      return Math.ceil(this.info.vote_average)
+      return Math.ceil(this.info.vote_average / 2)
     }
   }
 }
@@ -60,6 +65,9 @@ export default {
   width: 400px;
   margin: 10px 10px;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-retro {
@@ -99,6 +107,14 @@ export default {
 
 h3, p {
   margin: 5px auto;
+}
+
+.fas {
+  color: rgb(222, 200, 34);
+}
+
+.far {
+  color: rgb(222, 200, 34);
 }
 
 </style>

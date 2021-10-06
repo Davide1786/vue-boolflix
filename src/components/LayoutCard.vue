@@ -1,36 +1,41 @@
 <template>
 
 <div class="flip-card">
+
   <div class="flip-card-inner">
+
     <div class="flip-card-front">
       <img v-if="info.poster_path"
           :src="`https://image.tmdb.org/t/p/w300/${info.poster_path}`"
           alt="" class="image">
           <img v-else
-          src="../assets/img/logo.png" alt="">
+          src="../assets/img/logo.png" class="logotipo" alt="">
     </div>
+    
     <div class="flip-card-back">
-      <h3>Titolo</h3>
-              <p> {{ info.title ? info.title : info.name }} </p>
-              <h3>Titolo Originale</h3>
-              <p> {{ info.original_title ? info.original_title : info.original_name }} </p>
-              <h3>Voto</h3>
-              <div class="voto">
-                <i v-for="n in 5" :key="n" class="fa-star"
-                :class="(n <= getVoto()) ? 'fas' : 'far'">   
-                </i>
-              </div>
-              <span>Lingua</span>
-              <img v-if="lingue.includes(info.original_language)" 
-              class="iconeNazionali"
-              :src="require(`../assets/img/bandiera-${info.original_language}.png`)"> 
-              <p v-else class="testoLingua">
-                non disponibile
-              </p>
-              <h3>Storia</h3>
-              <p> {{ info.overview ? info.overview : 'Storia non disponibile' }} </p>
+        <h3>Titolo</h3>
+        <p> {{ info.title ? info.title : info.name }} </p>
+        <h3>Titolo Originale</h3>
+        <p> {{ info.original_title ? info.original_title : info.original_name }} </p>
+        <h3>Voto</h3>
+        <div class="voto">
+            <i v-for="n in 5" :key="n" class="fa-star"
+            :class="(n <= getVoto()) ? 'fas' : 'far'">   
+            </i>
+        </div>
+        <span>Lingua</span>
+        <img v-if="lingue.includes(info.original_language)" 
+          class="iconeNazionali"
+          :src="require(`../assets/img/bandiera-${info.original_language}.png`)"> 
+        <p v-else class="testoLingua">
+            non disponibile
+        </p>
+        <h3>Storia</h3>
+        <p> {{ info.overview ? info.overview : 'Storia non disponibile' }} </p>
     </div>
+   
   </div>
+  
 </div>
   
 
@@ -50,7 +55,7 @@ export default {
   methods: {
     getVoto: function() {
       return Math.ceil(this.info.vote_average / 2)
-    }
+    },
   }
 }
 </script>
@@ -58,10 +63,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+
 .flip-card {
   background-color: transparent;
-  height: 550px;
-  width: 400px;
+  height: 450px;
+  width: 300px;
   perspective: 1000px; 
   margin: 10px 10px;
 }
@@ -93,7 +99,7 @@ export default {
 .flip-card-front {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;  
 }
 
 .flip-card-back {
@@ -106,8 +112,12 @@ export default {
 
 .image {
   width: 100%;
-  height: 100%;
-  
+  height: 100%; 
+}
+
+.logotipo {
+  width: 100%;
+  padding: 10px;
 }
 
 .iconeNazionali {

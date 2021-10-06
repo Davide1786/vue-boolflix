@@ -34,6 +34,10 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 9;
+  
 
     .logo {
       width: 50%;

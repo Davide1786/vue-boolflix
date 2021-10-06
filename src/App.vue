@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container">
     <Header @search="controllo"/>
-    <Main :movies="movieSelezionato"/>
+    <Main :movies="movieSelezionato" :series="movieSerie" />
   </div>
 </template>
 
@@ -12,7 +12,6 @@ import Main from './components/Main.vue'
 
 export default {
   name: 'App',
-
   components: {
     Header,
     Main
@@ -22,25 +21,40 @@ export default {
       apiNetflix : 'https://api.themoviedb.org/3/search/',
       apiFilm: '?api_key=cccfd668f87b751c8d927b2426c90b75&query=',
       movieSelezionato: [],
+      movieSerie: [],
     }
   },
-  // created() {
-  //   this.getControllo()
-  // },
+  created() {
+    this.getControllo()
+  },
   methods: {
+    getControllo() {
+      axios
+            .get("https://api.themoviedb.org/3/movie/popular?api_key=cccfd668f87b751c8d927b2426c90b75&page=1")
+            .then(res => {
+                // console.log(res.data.results);
+                this.movieSelezionato = res.data.results;
+                axios
+                  .get("https://api.themoviedb.org/3/tv/popular?api_key=cccfd668f87b751c8d927b2426c90b75&page=")
+                  .then(ris => {
+                      // console.log(res.data.results);               
+                      this.movieSerie = ris.data.results;   
+                  })
+            })
+    },
     controllo(filtro) {
       // console.log(filtro);
         axios
             .get(this.apiNetflix + 'movie' + this.apiFilm + filtro)
             .then(res => {
-                // console.log(res.data.results);
+                // console.log("Film: " + res.data.results);
                 this.movieSelezionato = res.data.results;
             })
         axios
             .get(this.apiNetflix + 'tv' + this.apiFilm + filtro)
             .then(res => {
-                // console.log(res.data.results);
-                this.movieSelezionato = res.data.results;
+                // console.log("Serie: " + res.data.results);
+                this.movieSerie = res.data.results;
             })
     },
   }
@@ -53,10 +67,6 @@ export default {
 .container {
   background: #181818;
   height: 100vh;
-  width: 100%;
-  content: "";
-  display: table;
-  clear: both;
 }
 
 </style>
